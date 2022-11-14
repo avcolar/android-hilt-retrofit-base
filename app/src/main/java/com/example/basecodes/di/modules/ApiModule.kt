@@ -1,6 +1,7 @@
 package com.example.basecodes.di.modules
 
-import android.arch.core.BuildConfig
+import com.example.basecodes.data.api.ApiHelper
+import com.example.basecodes.data.api.ApiRepositoryImpl
 import com.example.basecodes.data.api.ApiService
 import dagger.Module
 import dagger.Provides
@@ -16,6 +17,9 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiModule {
+
+    @Provides
+    fun provideBaseUrl(): String = BuildConfig.BASE_URL
 
     @Provides
     @Singleton
@@ -43,6 +47,9 @@ object ApiModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideApiRepositoryImpl(apiRepositoryImpl: ApiRepositoryImpl): ApiHelper = apiRepositoryImpl
 
 
 }
